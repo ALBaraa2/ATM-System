@@ -1,0 +1,2 @@
+Account number: 9030295, Transaction: Deposit an amount of: 20.0
+Account number: 9227913, Transaction: Deposit an amount of: 500.0
