@@ -16,7 +16,8 @@ public class FileHandler {
                 String phoneNumber = data[2];
                 String password = data[3];
                 double balance = Double.parseDouble(data[4]);
-                userAccounts.add(new UserAccount(accountNumber, fullName, phoneNumber, password, balance));
+                int failedAttempts = Integer.parseInt(data[5]);
+                userAccounts.add(new UserAccount(accountNumber, fullName, phoneNumber, password, balance, failedAttempts));
             }
         } catch (IOException e) {
             System.out.println("Error loading user accounts: " + e.getMessage());
@@ -31,7 +32,8 @@ public class FileHandler {
                         user.getFullName() + "," +
                         user.getPhoneNumber() + "," +
                         user.getPassword() + "," +
-                        user.getBalance());  // كتابة الرصيد المعدل
+                        user.getBalance() + "," +
+                        user.getFailedAttempts());
                 writer.newLine();
             }
         } catch (IOException e) {

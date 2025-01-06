@@ -1,2 +1,3 @@
-Account number: 9030295, Transaction: Deposit an amount of: 20.0
-Account number: 9227913, Transaction: Deposit an amount of: 500.0
+Account number: 3264370, Transaction: Deposit an amount of: 500.0
+Account number: 3264370, Transaction: Deposit an amount of: 145.0
+Account number: 3264370, Transaction: Withdraw an amount of: 600.0

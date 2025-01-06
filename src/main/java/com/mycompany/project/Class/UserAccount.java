@@ -1,9 +1,6 @@
 package com.mycompany.project.Class;
 
 
-import java.io.*;
-import java.util.*;
-
 public class UserAccount {
 
     private String accountNumber;
@@ -12,18 +9,24 @@ public class UserAccount {
     private String password;
     private double balance;
     private int c;
+    private int failedAttempts;
 
     public UserAccount(String accountNumber, String fullName, String phoneNumber,
-                       String password, double balance) {
+                       String password, double balance, int failedAttempts) {
         this.accountNumber = accountNumber;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.balance = balance;
+        this.failedAttempts = failedAttempts;
     }
 
     public void setC(int c) {
         this.c = c;
+    }
+
+    public void setFailedAttempts(int failedAttempts) {
+        this.failedAttempts = failedAttempts;
     }
 
     public int getC() {
@@ -54,6 +57,9 @@ public class UserAccount {
         return balance;
     }
 
+    public int getFailedAttempts() {
+        return failedAttempts;
+    }
     public boolean setPassword(String password) {
         if (password.length() >= 6) {
             this.password = password;

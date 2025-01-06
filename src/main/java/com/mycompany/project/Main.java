@@ -21,49 +21,64 @@ public class Main {
             scanner.nextLine();
             switch (choice) {
                 case 1:
+                    int i = 0;
                     System.out.print("Enter Account number: ");
                     String accountNumber = scanner.next();
                     System.out.print("Enter Password: ");
                     String password = scanner.next();
                     UserAccount user = atmSystem.login(accountNumber, password);
                     if (user != null) {
-                        System.out.println("You have successfully logged in!");
-                        boolean check = true;
-                        while (check) {
-                            Scanner input = new Scanner(System.in);
-                            System.out.println("Welcome " + user.getFullName());
-                            System.out.println("1. Deposit Funds.");
-                            System.out.println("2. Withdraw Funds.");
-                            System.out.println("3. Check Balance.");
-                            System.out.println("4. View Transaction History.");
-                            System.out.println("5. Logout");
-                            System.out.print("Enter your choice: ");
+                            System.out.println("You have successfully logged in!");
+                            boolean check = true;
+                            while (check) {
+                                Scanner input = new Scanner(System.in);
+                                System.out.println("Welcome " + user.getFullName());
+                                System.out.println("1. Deposit Funds.");
+                                System.out.println("2. Withdraw Funds.");
+                                System.out.println("3. Check Balance.");
+                                System.out.println("4. View Transaction History.");
+                                System.out.println("5. Change my password.");
+                                System.out.println("6. Logout");
+                                System.out.print("Enter your choice: ");
 
-                            switch (input.nextInt()) {
-                                case 1:
-                                    System.out.print("Enter The amount to deposit: ");
-                                    double depositAmount = input.nextDouble();
-                                    atmSystem.performTransaction(user, "Deposit", depositAmount);
-                                    break;
-                                case 2:
-                                    System.out.print("Enter The amount to withdraw: ");
-                                    double withdrawAmount = input.nextDouble();
-                                    atmSystem.performTransaction(user, "Withdraw", withdrawAmount);
-                                    break;
-                                case 3:
-                                    System.out.println("Your Balance is: " + user.checkBalance());
-                                    break;
-                                case 4:
-                                    atmSystem.viewTransactionHistory(user);
-                                    break;
-                                case 5:
-                                    System.out.println("You have successfully logged out. Thank you for using our ATM system!");
-                                    check = false;
-                                    break;
-                                default:
-                                    System.out.println("Enter valid choice");
+                                switch (input.nextInt()) {
+                                    case 1:
+                                        System.out.print("Enter The amount to deposit: ");
+                                        double depositAmount = input.nextDouble();
+                                        atmSystem.performTransaction(user, "Deposit", depositAmount);
+                                        break;
+                                    case 2:
+                                        System.out.print("Enter The amount to withdraw: ");
+                                        double withdrawAmount = input.nextDouble();
+                                        atmSystem.performTransaction(user, "Withdraw", withdrawAmount);
+                                        break;
+                                    case 3:
+                                        System.out.println("Your Balance is: " + user.checkBalance());
+                                        break;
+                                    case 4:
+                                        atmSystem.viewTransactionHistory(user);
+                                        break;
+                                    case 5:
+                                        System.out.print("Enter your old password: ");
+                                        String oldPassword = scanner.next();
+                                        if (user.getPassword().equals(oldPassword)) {
+                                            System.out.print("Enter your new password: ");
+                                            String newPassword = scanner.next();
+                                            if (atmSystem.changePassword(user, oldPassword, newPassword))
+                                                System.out.println("You have successfully changed your password!");
+                                            else
+                                                System.out.println("You have unsuccessfully changed your password!");
+                                        } else
+                                            System.out.println("Your old password is incorrect!");
+                                        break;
+                                    case 6:
+                                        System.out.println("You have successfully logged out. Thank you for using our ATM system!");
+                                        check = false;
+                                        break;
+                                    default:
+                                        System.out.println("Enter valid choice");
+                                }
                             }
-                        }
                     }
                     break;
                 case 2:

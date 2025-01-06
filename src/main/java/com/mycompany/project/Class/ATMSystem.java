@@ -15,16 +15,32 @@ public class ATMSystem {
 
         for (int i = 0; i < usersAccounts.size(); i++) {
             if (usersAccounts.get(i).getAccountNumber().equals(accountNumber)) {
-                usersAccounts.get(i).setC(i);
-                return usersAccounts.get(i);
-            }
+                int failedAttempts = usersAccounts.get(i).getFailedAttempts();
+                if (failedAttempts < 3) {
+                    if (usersAccounts.get(i).getPassword().equals(password)) {
+                        usersAccounts.get(i).setC(i);
+                        usersAccounts.get(i).setFailedAttempts(0);
+                        FileHandler.saveUserAccounts(usersAccounts);
+                        return usersAccounts.get(i);
+                    } else {
+                        failedAttempts += 1;
+                        usersAccounts.get(i).setFailedAttempts(failedAttempts);
+                        FileHandler.saveUserAccounts(usersAccounts);
+                        System.out.println("Wrong Password!");
+                    }
+                } else {
+                    System.out.println("This user is Blocked!");
+                }
+            } else
+                System.out.println("Wrong Account Number!");
         }
-        System.out.println("Account number or password incorrect");
+        if (usersAccounts.isEmpty())
+            System.out.println("This user does not exist");
         return null;
     }
 
     public UserAccount register(String fullName, String phoneNumber, String password) {
-        UserAccount userAccount = new UserAccount(generateAccountNumber(), fullName, phoneNumber, password, 0);
+        UserAccount userAccount = new UserAccount(generateAccountNumber(), fullName, phoneNumber, password, 0, 0);
         usersAccounts.add(userAccount);
         FileHandler.saveUserAccounts(usersAccounts);
         System.out.println("Account created successfully. Your account number is: " + userAccount.getAccountNumber());
@@ -60,6 +76,15 @@ public class ATMSystem {
 
     public void viewTransactionHistory(UserAccount user) {
         FileHandler.viewTransactionHistory(user.getAccountNumber());
+    }
+
+    public boolean changePassword(UserAccount user, String oldPassword, String newPassword) {
+
+        if (user.getPassword().equals(oldPassword)) {
+            user.setPassword(newPassword);
+            FileHandler.saveUserAccounts(usersAccounts);
+        }
+        return false;
     }
 
     private String generateAccountNumber() {
