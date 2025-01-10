@@ -31,7 +31,6 @@ public class Main {
                             System.out.println("You have successfully logged in!");
                             boolean check = true;
                             while (check) {
-                                Scanner input = new Scanner(System.in);
                                 System.out.println("Welcome " + user.getFullName());
                                 System.out.println("1. Deposit Funds.");
                                 System.out.println("2. Withdraw Funds.");
@@ -41,15 +40,15 @@ public class Main {
                                 System.out.println("6. Logout");
                                 System.out.print("Enter your choice: ");
 
-                                switch (input.nextInt()) {
+                                switch (scanner.nextInt()) {
                                     case 1:
                                         System.out.print("Enter The amount to deposit: ");
-                                        double depositAmount = input.nextDouble();
+                                        double depositAmount = scanner.nextDouble();
                                         atmSystem.performTransaction(user, "Deposit", depositAmount);
                                         break;
                                     case 2:
                                         System.out.print("Enter The amount to withdraw: ");
-                                        double withdrawAmount = input.nextDouble();
+                                        double withdrawAmount = scanner.nextDouble();
                                         atmSystem.performTransaction(user, "Withdraw", withdrawAmount);
                                         break;
                                     case 3:
@@ -92,7 +91,7 @@ public class Main {
                         System.out.print("Please add another password: ");
                         newPassword = scanner.next();
                     }
-                    UserAccount user1 = atmSystem.register(fullName, phoneNumber, newPassword);
+                    atmSystem.register(fullName, phoneNumber, newPassword);
                     break;
                 case 3:
                     System.out.println("Exiting ATM System. Goodbye!");
